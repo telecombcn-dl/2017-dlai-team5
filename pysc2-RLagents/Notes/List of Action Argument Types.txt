@@ -1,0 +1,59 @@
+==================================================
+List of Argument Types for Actions/Functions
+==================================================
+
+[0] screen
+# A point on the screen, by default accepts 2 integers [0, 84)
+
+[1] minimap
+# A point on the minimap, by default accepts 2 integers [0, 64)
+
+[2] screen2
+# Same as screen(id=0), used when two screen points need to be selected
+
+[3] queued
+# Whether the action should be taken immediately or after previous actions, boolean
+
+[4] control_group_act
+# Reference for each of the five actions related to control groups, scalar integer [0, 5)
+# 0 - Recall
+# 1 - Set
+# 2 - Append
+# 3 - SetAndSteal (set selected units to control group and remove from other control groups)
+# 4 - AppendAndSteal (add selected units to control group and remove from other control groups)
+
+[5] control_group_id
+# Reference for each of the ten control groups that can be assigned, scalar integer [0, 10)
+
+[6] select_point_act
+# Reference for each of the four actions related to selecting a point, scalar integer [0, 4)
+# 0 - Select
+# 1 - Toggle (add or subtract from selection)
+# 2 - AllType (select all units of the same type)
+# 3 - AddAllType (add all units of the same type to selection)
+
+[7] select_add
+# Whether to select or add to existing selection, boolean
+
+[8] select_unit_act
+# Reference for each of the four actions related to selecting a unit from the multipanel, scalar integer [0, 4)
+# 0 - SingleSelect
+# 1 - DeselectUnit
+# 2 - SelectAllOfType
+# 3 - DeselectAllOfType
+
+[9] select_unit_id
+# Reference for each unit that can be selected from the current multipanel, scalar integer [0, 500)
+
+[10] select_worker
+# Reference for each of the four actions related to selecting an idle work, scalar integer [0, 4)
+# 0 - Set (select)
+# 1 - Add (add to selection)
+# 2 - All (select all idle workers)
+# 3 - AddAll (add all idle workers to selection)
+
+[11] build_queue_id
+# Reference for each unit in a build queue (max 10), scalar integer [0, 10)
+
+[12] unload_id
+# Reference for each loaded unit in a cargo, scalar integer [0, 500)
