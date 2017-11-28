@@ -6,11 +6,15 @@ from skimage import measure
 from pysc2.env import sc2_env, available_actions_printer
 from pysc2.lib import colors, features
 
+from math import sqrt
+
 from absl import app
 from PIL import Image
 
 _PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
+_PLAYER_FRIENDLY = 1
 _PLAYER_HOSTILE = 4
+INF = float('inf')
 
 def colorize(imin):
     palette = colors.PLAYER_RELATIVE_PALETTE
@@ -18,6 +22,23 @@ def colorize(imin):
     for idx, color in enumerate(palette):
         imout[imin==idx] = color
     return imout
+
+def count_enemies(imin):
+    _, number_of_enemies = measure.label(imin == _PLAYER_HOSTILE, connectivity=1,
+            return_num=True)
+    return number_of_enemies
+
+def min_distance_to_enemy(imin):
+    player_x, player_y = (imin == _PLAYER_FRIENDLY).nonzero()
+    enemy_x, enemy_y = (imin == _PLAYER_HOSTILE).nonzero()
+    min_sqdist = INF
+    for x, y in zip(enemy_x, enemy_y):
+        for x_, y_ in zip(player_x, player_y):
+            dx = x - x_
+            dy = y - y_
+            sqdist = dx*dx + dy*dy
+            if sqdist < min_sqdist: min_sqdist = sqdist
+    return sqrt(min_sqdist)
 
 def main(argv):
 
@@ -31,13 +52,14 @@ def main(argv):
         env = available_actions_printer.AvailableActionsPrinter(env)
         timestep = env.reset()[0]
         minimap = timestep.observation['minimap']
-        screen = timestep.observation['screen']
+        screen = timestep.observation['screen'][_PLAYER_RELATIVE]
         player_relative = minimap[_PLAYER_RELATIVE]
         player_relative_color = colorize(transform.resize(player_relative,
             (256, 256), order=0, preserve_range=True))
-        _, number_of_enemies = measure.label(player_relative == _PLAYER_HOSTILE,
-            connectivity=1, return_num=True)
+        number_of_enemies = count_enemies(player_relative)
+        min_distance = min_distance_to_enemy(screen)
         print("Number of enemies in minimap: " + str(number_of_enemies))
+        print("Minimum distance to enemy: " + str(min_distance))
         pic = Image.fromarray(player_relative_color)
         pic.show()
         input("Press any key to continue")
