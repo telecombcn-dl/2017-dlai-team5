@@ -23,6 +23,13 @@ def colorize(imin):
         imout[imin==idx] = color
     return imout
 
+def count_units(obs, minimap=False):
+    obs = obs.observation
+    imin = obs['minimap'] if minimap else obs['screen']
+    imin = imin[_PLAYER_RELATIVE]
+    _, number_of_units = measure.label(imin, connectivity=1, return_num=True)
+    return number_of_units
+
 def count_enemies(imin):
     _, number_of_enemies = measure.label(imin == _PLAYER_HOSTILE, connectivity=1,
             return_num=True)
@@ -58,6 +65,8 @@ def main(argv):
             (256, 256), order=0, preserve_range=True))
         number_of_enemies = count_enemies(player_relative)
         min_distance = min_distance_to_enemy(screen)
+        units = count_units(timestep)
+        print("Number of units in screen: " + str(units))
         print("Number of enemies in minimap: " + str(number_of_enemies))
         print("Minimum distance to enemy: " + str(min_distance))
         pic = Image.fromarray(player_relative_color)

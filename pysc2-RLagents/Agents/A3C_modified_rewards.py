@@ -24,6 +24,7 @@ from absl.flags import FLAGS
 
 # [NEW] Alejandro
 from math import sqrt
+from skimage import measure
 #################
 
 from pysc2.env import sc2_env
@@ -44,7 +45,7 @@ tensorboard --logdir=worker_0:'./train_0',worker_1:'./train_1',worker_2:'./train
 
 ## HELPER FUNCTIONS
 
-# [Alejandro] NEW
+# [NEW] Alejandro
 
 def min_distance_to_enemy(obs, minimap=False):
     obs = obs.observation
@@ -60,6 +61,13 @@ def min_distance_to_enemy(obs, minimap=False):
             sqdist = dx*dx + dy*dy
             if sqdist < min_sqdist: min_sqdist = sqdist
     return sqrt(min_sqdist)
+
+def count_units(obs, minimap=False):
+    obs = obs.observation
+    imin = obs['minimap'] if minimap else obs['screen']
+    imin = imin[_PLAYER_RELATIVE]
+    _, number_of_units = measure.label(imin, connectivity=1, return_num=True)
+    return number_of_units
 
 #################
 
@@ -393,8 +401,9 @@ class Worker():
                                 # Start new episode
                                 obs = self.env.reset()
 
-                                # [Alejandro] NEW
-                                self.last_min_dist_to_enemy = min_distance_to_enemy(obs[0], minimap=False)
+                                # [NEW] Alejandro
+                                self.last_min_dist_to_enemy = min_distance_to_enemy(obs[0], minimap=True)
+                                self.units_in_frame = count_units(obs[0], minimap=False)
                                 #################
 
                                 episode_frames.append(obs[0])
@@ -448,7 +457,7 @@ class Worker():
                                         # [NEW] Alejandro
                                         r_modified = r
                                         last_dist = self.last_min_dist_to_enemy
-                                        curr_dist = min_distance_to_enemy(obs[0], minimap=False)
+                                        curr_dist = min_distance_to_enemy(obs[0], minimap=True)
                                         if last_dist == INF and curr_dist < INF:
                                             print("Zergling discovered!")
                                             r_modified += 0.1 # Zergling discovered
@@ -458,8 +467,18 @@ class Worker():
                                                 r_modified -= 0.1 # Zergling left behind
                                         else:
                                             if r <= 0:
-                                                r_modified += (last_dist - curr_dist)/50.0
+                                                r_modified += (last_dist - curr_dist)/10.0
                                         self.last_min_dist_to_enemy = curr_dist
+
+                                        curr_units = count_units(obs[0], minimap=False)
+                                        if base_action == 1:
+                                            last_units = self.units_in_frame
+                                            # if curr_units > last_units:
+                                                # print("Better camera frame")
+                                            # elif curr_units < last_units:
+                                                # print("Worse camera frame")
+                                            r_modified += 0.5*(curr_units-last_units)
+                                        self.units_in_frame = curr_units
                                         #################
 
                                         if not episode_end:
@@ -582,7 +601,7 @@ def main():
                 trainer = tf.train.AdamOptimizer(learning_rate=1e-4)
                 master_network = AC_Network('global',None, action_spec, observation_spec) # Generate global network
                 #num_workers = multiprocessing.cpu_count() # Set workers to number of available CPU threads
-                num_workers = psutil.cpu_count() # Set workers to number of available CPU threads
+                num_workers =  psutil.cpu_count() # Set workers to number of available CPU threads
                 global _max_score, _running_avg_score, _steps, _episodes
                 _max_score = 0
                 _running_avg_score = 0
