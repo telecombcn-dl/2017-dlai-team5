@@ -1,6 +1,7 @@
 import numpy as np
 
-from scipy.ndimage import zoom
+from skimage import transform
+from skimage import measure
 
 from pysc2.env import sc2_env, available_actions_printer
 from pysc2.lib import colors, features
@@ -9,18 +10,14 @@ from absl import app
 from PIL import Image
 
 _PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
+_PLAYER_HOSTILE = 4
 
 def colorize(imin):
     palette = colors.PLAYER_RELATIVE_PALETTE
     imout = np.zeros(imin.shape+(3,), dtype=np.uint8)
     for idx, color in enumerate(palette):
         imout[imin==idx] = color
-    print(imin.shape)
-    print(imin.dtype)
-    print(imout.shape)
-    print(imout.dtype)
     return imout
-
 
 def main(argv):
 
@@ -35,9 +32,13 @@ def main(argv):
         timestep = env.reset()[0]
         minimap = timestep.observation['minimap']
         screen = timestep.observation['screen']
-        player_relative = zoom(minimap[_PLAYER_RELATIVE], 4, order=0)
-        player_relative = colorize(player_relative)
-        pic = Image.fromarray(player_relative)
+        player_relative = minimap[_PLAYER_RELATIVE]
+        player_relative_color = colorize(transform.resize(player_relative,
+            (256, 256), order=0, preserve_range=True))
+        _, number_of_enemies = measure.label(player_relative == _PLAYER_HOSTILE,
+            connectivity=1, return_num=True)
+        print("Number of enemies in minimap: " + str(number_of_enemies))
+        pic = Image.fromarray(player_relative_color)
         pic.show()
         input("Press any key to continue")
 
