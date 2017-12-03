@@ -13,8 +13,8 @@ def run_loop(agents, env, max_frames=0):
     while True:
       num_frames = 0
       timesteps = env.reset()
-      for a in agents:
-        a.reset()
+      for a, timestep in zip(agents, timesteps):
+        a.reset(timestep)
       while True:
         num_frames += 1
         last_timesteps = timesteps

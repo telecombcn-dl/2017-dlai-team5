@@ -11,6 +11,54 @@ from pysc2.lib import features
 from agents.network import build_net
 import utils as U
 
+# [NEW] Alejandro
+from math import sqrt, isnan
+from skimage import measure
+
+_VISIBILITY = features.SCREEN_FEATURES.visibility_map.index
+_PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
+_PLAYER_FRIENDLY = 1
+_PLAYER_HOSTILE = 4
+_VISIBLE = 2
+INF = float('inf')
+
+def min_distance_to_enemy(obs, minimap=False):
+    obs = obs.observation
+    imin = obs['minimap'] if minimap else obs['screen']
+    imin = imin[_PLAYER_RELATIVE]
+    player_x, player_y = (imin == _PLAYER_FRIENDLY).nonzero()
+    enemy_x, enemy_y = (imin == _PLAYER_HOSTILE).nonzero()
+    min_sqdist = INF
+    for x, y in zip(enemy_x, enemy_y):
+        for x_, y_ in zip(player_x, player_y):
+            dx = x - x_
+            dy = y - y_
+            sqdist = dx*dx + dy*dy
+            if sqdist < min_sqdist: min_sqdist = sqdist
+    return sqrt(min_sqdist)
+
+def count_units(obs, minimap=False):
+    obs = obs.observation
+    imin = obs['minimap'] if minimap else obs['screen']
+    imin = imin[_PLAYER_RELATIVE]
+    _, number_of_units = measure.label(imin, connectivity=1, return_num=True)
+    return number_of_units
+
+def count_enemies(obs, minimap=False):
+    obs = obs.observation
+    imin = obs['minimap'] if minimap else obs['screen']
+    imin = imin[_PLAYER_RELATIVE] == _PLAYER_HOSTILE
+    _, number_of_units = measure.label(imin, connectivity=1, return_num=True)
+    return number_of_units
+
+def proportion_visible_onscreen(obs):
+    obs = obs.observation
+    imin = obs['screen'][_VISIBILITY]
+    visible_pix = np.count_nonzero(imin == _VISIBLE)
+    return visible_pix / imin.size
+
+#################
+
 
 class A3CAgent(object):
   """An agent specifically for solving the mini-game maps."""
@@ -24,6 +72,7 @@ class A3CAgent(object):
     self.ssize = ssize
     self.isize = len(actions.FUNCTIONS)
     self.episode_rewards = []
+    self.episode_modified_rewards = []
 
 
   def setup(self, sess, summary_writer):
@@ -36,10 +85,9 @@ class A3CAgent(object):
     self.sess.run(init_op)
 
 
-  def reset(self):
+  def reset(self, timestep):
     # Epsilon schedule
     self.epsilon = [0.05, 0.2]
-
 
   def build_model(self, reuse, dev, ntype):
     with tf.variable_scope(self.name) and tf.device(dev):
@@ -171,6 +219,9 @@ class A3CAgent(object):
     screens = []
     infos = []
     episode_reward = 0
+    # [NEW] Alejandro
+    episode_modified_reward = 0
+    #################
 
     value_target = np.zeros([len(rbs)], dtype=np.float32)
     value_target[-1] = R
@@ -195,10 +246,52 @@ class A3CAgent(object):
 
       episode_reward += obs.reward
       reward = obs.reward
+
+      # [NEW] Alejandro
+      r_modified = reward
+
+      last_dist = min_distance_to_enemy(obs, minimap=True)
+      curr_dist = min_distance_to_enemy(next_obs, minimap=True)
+
+      if last_dist == INF and curr_dist < INF:
+        print("Zergling discovered!")
+        r_modified += 1.0 # Zergling discovered
+      elif last_dist < INF and curr_dist == INF:
+        if reward <= 0 and i:
+          print("The marines have lost all the Zerglings!")
+          r_modified -= 1.0 # don't flee!
+      elif last_dist < INF and curr_dist < INF and reward <= 0:
+        # if curr_dist < last_dist:
+          # print("Approaching Zergling")
+        # elif curr_dist > last_dist:
+          # print("Getting away from Zergling")
+        r_modified += (last_dist - curr_dist)/10
+        if isnan(r_modified): print("NaN at point A")
+           
+      if action.function == 1:
+        prop_bef = proportion_visible_onscreen(obs)
+        prop_aft = proportion_visible_onscreen(next_obs)
+        print("Camera action. Previous %visible: {}."
+            " Current %visible: {}".format(100*prop_bef, 100*prop_aft))
+        r_modified += 2*(prop_aft - prop_bef)
+        # units_bef = count_units(obs, minimap=False)
+        # units_aft = count_units(next_obs, minimap=False)
+        # print("Camera action. Previous #units: {}. Current #units: {}".format(
+            # units_bef, units_aft))
+        # r_modified += 0.5*(units_aft - units_bef)
+        if isnan(r_modified): print("NaN at point B")
+
+      episode_modified_reward += r_modified
+      #################
+
       act_id = action.function
       act_args = action.arguments
 
-      value_target[i] = reward + disc * value_target[i-1]
+      # [OLD]
+      # value_target[i] = reward + disc * value_target[i-1]
+      # [NEW] Alejandro
+      value_target[i] = r_modified + disc * value_target[i-1]
+      #################
 
       valid_actions = obs.observation["available_actions"]
       valid_non_spatial_action[i, valid_actions] = 1
@@ -212,6 +305,9 @@ class A3CAgent(object):
           spatial_action_selected[i, ind] = 1
 
     self.episode_rewards.append(episode_reward)
+    # [NEW] Alejandro
+    self.episode_modified_rewards.append(episode_modified_reward)
+    #################
     minimaps = np.concatenate(minimaps, axis=0)
     screens = np.concatenate(screens, axis=0)
     infos = np.concatenate(infos, axis=0)
@@ -234,6 +330,11 @@ class A3CAgent(object):
     summ.value.add(tag='Reward', simple_value=float(episode_reward))
     #summ.value.add(tag='Mean Value', simple_value=float(np.mean(value_target)))
     self.summary_writer.add_summary(summ, cter)
+    # [NEW] Alejandro: new summary to save the modified reward
+    rmod_summ = tf.Summary()
+    rmod_summ.value.add(tag="Modified reward", simple_value=episode_modified_reward)
+    self.summary_writer.add_summary(rmod_summ, cter)
+    #################
 
     self.summary_writer.flush()
 

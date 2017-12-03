@@ -11,9 +11,11 @@ from math import sqrt
 from absl import app
 from PIL import Image
 
+_VISIBILITY = features.SCREEN_FEATURES.visibility_map.index
 _PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
 _PLAYER_FRIENDLY = 1
 _PLAYER_HOSTILE = 4
+_VISIBLE = 2
 INF = float('inf')
 
 def colorize(imin):
@@ -29,6 +31,13 @@ def count_units(obs, minimap=False):
     imin = imin[_PLAYER_RELATIVE]
     _, number_of_units = measure.label(imin, connectivity=1, return_num=True)
     return number_of_units
+
+def proportion_visible_onscreen(obs):
+    obs = obs.observation
+    imin = obs['screen'][_VISIBILITY]
+    visible_pix = np.count_nonzero(imin == _VISIBLE)
+    return visible_pix / imin.size
+
 
 def count_enemies(imin):
     _, number_of_enemies = measure.label(imin == _PLAYER_HOSTILE, connectivity=1,
@@ -69,6 +78,7 @@ def main(argv):
         print("Number of units in screen: " + str(units))
         print("Number of enemies in minimap: " + str(number_of_enemies))
         print("Minimum distance to enemy: " + str(min_distance))
+        print("Proportion visible: {}%".format(100*proportion_visible_onscreen(timestep)))
         pic = Image.fromarray(player_relative_color)
         pic.show()
         input("Press any key to continue")

@@ -23,7 +23,7 @@ from absl import flags
 from absl.flags import FLAGS
 
 # [NEW] Alejandro
-from math import sqrt
+from math import sqrt, isnan
 from skimage import measure
 #################
 
@@ -402,7 +402,7 @@ class Worker():
                                 obs = self.env.reset()
 
                                 # [NEW] Alejandro
-                                self.last_min_dist_to_enemy = min_distance_to_enemy(obs[0], minimap=False)
+                                self.last_min_dist_to_enemy = min_distance_to_enemy(obs[0], minimap=True)
                                 self.units_in_frame = count_units(obs[0], minimap=False)
                                 #################
 
@@ -456,28 +456,35 @@ class Worker():
 
                                         # [NEW] Alejandro
                                         r_modified = r
+
                                         last_dist = self.last_min_dist_to_enemy
-                                        curr_dist = min_distance_to_enemy(obs[0], minimap=False)
-                                        if last_dist == INF and curr_dist < INF:
-                                            print("Zergling discovered!")
-                                            r_modified += 0.1 # Zergling discovered
-                                        elif last_dist < INF and curr_dist == INF:
-                                            if r <= 0 and not episode_end:
-                                                print("The marines have lost all the Zerglings!")
-                                                r_modified -= 0.1 # Zergling left behind
-                                        else:
-                                            if r <= 0:
-                                                r_modified += (last_dist - curr_dist)/50.0
+                                        curr_dist = min_distance_to_enemy(obs[0], minimap=True)
+                                        # if last_dist == INF and curr_dist < INF:
+                                            # # print("Zergling discovered!")
+                                            # r_modified += 0.2 # Zergling discovered
+                                        # elif last_dist < INF and curr_dist == INF:
+                                            # if r <= 0 and not episode_end:
+                                                # print("The marines have lost all the Zerglings!")
+                                                # r_modified -= 0.2 # # don't flee!
+                                        # elif last_dist == INF and curr_dist == INF:
+                                            # pass
+                                            # # print("no zerglings")
+                                        if last_dist < INF and curr_dist < INF and r <= 0:
+                                            r_modified += (last_dist - curr_dist)/20
+                                            if isnan(r_modified): print("NaN at point A")
+                                             
                                         self.last_min_dist_to_enemy = curr_dist
 
                                         curr_units = count_units(obs[0], minimap=False)
                                         if base_action == 1:
                                             last_units = self.units_in_frame
+                                            r_modified += 0.5*(curr_units - last_units)
+                                            if isnan(r_modified): print("NaN at point B")
                                             if curr_units > last_units:
                                                 print("better camera frame")
                                             elif curr_units < last_units:
                                                 print("worse camera frame")
-                                            r_modified += 0.2*(curr_units-last_units)
+
                                         self.units_in_frame = curr_units
                                         #################
 
@@ -581,7 +588,7 @@ class Worker():
 def main():
         max_episode_length = 300
         gamma = .99 # Discount rate for advantage estimation and reward discounting
-        load_model = False
+        load_model = True
         model_path = './model'
         map_name = FLAGS.map_name
         assert map_name in mini_games.mini_games
@@ -615,7 +622,7 @@ def main():
 
         with tf.Session() as sess:
                 coord = tf.train.Coordinator()
-                if load_model == True:
+                if load_model:
                         print ('Loading Model...')
                         ckpt = tf.train.get_checkpoint_state(model_path)
                         saver.restore(sess,ckpt.model_checkpoint_path)

@@ -54,6 +54,7 @@ if FLAGS.training:
   PARALLEL = FLAGS.parallel
   MAX_AGENT_STEPS = FLAGS.max_agent_steps
   DEVICE = ['/gpu:'+dev for dev in FLAGS.device.split(',')]
+  # DEVICE = ['/cpu:0']
 else:
   PARALLEL = 1
   MAX_AGENT_STEPS = 1e5
@@ -123,9 +124,9 @@ def _main(unused_argv):
     agent.build_model(i > 0, DEVICE[i % len(DEVICE)], FLAGS.net)
     agents.append(agent)
 
-  #config = tf.ConfigProto(allow_soft_placement=True)
-  #config.gpu_options.allow_growth = True
-  #sess = tf.Session(config=config)
+  config = tf.ConfigProto(allow_soft_placement=True)
+  config.gpu_options.allow_growth = True
+  sess = tf.Session(config=config)
 
   summary_writer = tf.summary.FileWriter(LOG)
   for i in range(PARALLEL):
@@ -133,6 +134,8 @@ def _main(unused_argv):
 
   agent.initialize()
   if not FLAGS.training or FLAGS.continuation:
+    print("training: " + str(FLAGS.training))
+    print("continuation: " + str(FLAGS.training))
     global COUNTER
     COUNTER = agent.load_model(SNAPSHOT)
 
