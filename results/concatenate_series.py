@@ -3,11 +3,17 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 
-from sys import argv
+from sys import argv, exit
 
-assert len(argv) == 2
+usage = """Usage: {} folder
+
+Concatentates all the series present in folder (as CSV files) and outputs
+a plot (in PNG and in PDF) in the working dir."""
 
 if __name__ == "__main__":
+    if len(argv) != 2:
+        print(usage.format(argv[0]))
+        exit(0)
     folder = argv[1]
     filenames = list(filter(lambda n: n.endswith('.csv'), os.listdir(folder)))
     print(filenames)
