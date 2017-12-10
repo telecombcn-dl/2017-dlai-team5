@@ -21,12 +21,12 @@ In typical real-time strategy games, players build armies and vie for control of
 
 It combines fast paced micro-actions with the need for high-level planning and execution. Over the previous two decades, StarCraft I and II have been pioneering and enduring e-sports, 2 with millions of casual and highly competitive professional players. Defeating top human players therefore becomes a meaningful and measurable long-term objective.
 
-From a reinforcement learning perspective, StarCraft II also offers an unparalleled opportunity to explore many challenging new frontiers.
+From a reinforcement learning perspective, StarCraft II also offers an unparalleled opportunity to explore many challenging new frontiers:
 </p>
 
 <ol>
-  <li>it is a multi-agent problem in which several players compete for influence and resources. It is also multi-agent at a lower-level: each player controls hundreds of units, which need to collaborate to achieve a common goal.</li>
-  <li>it is an imperfect information game. The map is only partially observed via a local camera, which must be actively moved in order for the player to integrate.</li>
+  <li>It is a multi-agent problem in which several players compete for influence and resources. It is also multi-agent at a lower-level: each player controls hundreds of units, which need to collaborate to achieve a common goal.</li>
+  <li>It is an imperfect information game. The map is only partially observed via a local camera, which must be actively moved in order for the player to integrate.</li>
 </ol>
 
 
