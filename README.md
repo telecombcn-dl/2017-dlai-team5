@@ -12,7 +12,7 @@ This project was developed during the [Deep Learning for Artificial Intelligence
 
 ## StarCraft II
 <p align="center">
-<img src="blob/master/images/img-sc2-logo--large.png"  alt="" />
+<img src="images/img-sc2-logo--large.png"  alt="" />
 </p>
 
 <p><img src="https://assets-cdn.github.com/images/icons/emoji/octocat.png" alt="" /></p>
