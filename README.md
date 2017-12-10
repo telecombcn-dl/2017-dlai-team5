@@ -51,10 +51,22 @@ Scheme 1 explains how SC2LE works combining StarCarft II API with Google DeepMin
 <p align="center">
   <img src="images/sc2le.png"  alt="" />
   <br/>
+  <br/>
   Sheme 1. SC2LE
 </p>
 
 ### Objectives
+
+<p style="text-align: justify">
+Playing the whole game is quite an ambitious goal that currently is whithin the reach of scripted agents. However, the StarCraft II learning environment provides several bounded challenges that are most appropriate to test the learning capabilities of an intelligent agent. It is our intention to develop an intelligent Deep RL agent that can perform successfully on several mini-games with bound objectives. Moreover, we want to experiment with the reward system to see how several changes may influence the behaviour of the agent. That's why we can define our objectives by:
+</p>
+
+<ul>
+  <li>Focusing on small mini-games.</li>
+  <li>Training and evaluating several RL agents.</li>
+  <li>Dealing and try to improve the reward system.</li>
+</ul>
+
 
 ## Techniques
 
