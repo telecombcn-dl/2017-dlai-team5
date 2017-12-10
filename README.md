@@ -15,12 +15,16 @@ This project was developed during the [Deep Learning for Artificial Intelligence
 <img src="images/img-sc2-logo--large.png"  alt="" />
 </p>
 
-<p>
+<p style="text-align: justify">
 As defined on the Blizzard website (the company that develops the game) 'StarCraft II: Wings of Liberty is the long-awaited sequel to the original StarCraft, Blizzard Entertainment’s critically acclaimed sci-fi real-time strategy (RTS) game. StarCraft II: Wings of Liberty is both a challenging single-player game and a fast-paced multiplayer game.
 In typical real-time strategy games, players build armies and vie for control of the battlefield. The armies in play can be as small as a single squad of Marines or as large as a full-blown planetary invasion force. As commander, you observe the battlefield from a top-down perspective and issue orders to your units in real time. Strategic thinking is key to success; you need to gather information about your opponents, anticipate their moves, outflank their attacks, and formulate a winning strategy.'
+</p>
 
+<p>
 It combines fast paced micro-actions with the need for high-level planning and execution. Over the previous two decades, StarCraft I and II have been pioneering and enduring e-sports, 2 with millions of casual and highly competitive professional players. Defeating top human players therefore becomes a meaningful and measurable long-term objective.
+</p>
 
+<p>
 From a reinforcement learning perspective, StarCraft II also offers an unparalleled opportunity to explore many challenging new frontiers:
 </p>
 
@@ -29,10 +33,17 @@ From a reinforcement learning perspective, StarCraft II also offers an unparalle
   <li>It is an imperfect information game. The map is only partially observed via a local camera, which must be actively moved in order for the player to integrate.</li>
 </ol>
 
-
-
-
 ### PySC2 Environment
+
+| <img src="images/logo_sc2.png" width="200"   alt="" /> | <img src="images/logo_deepmind.png" width="200"  alt="" /> | <img src="images/logo_python.png" width="200"  alt="" /> |
+| :---: | :---: | :---: |
+| StarCarft II | Google DeepMind | Python |
+
+<p>
+PySC2 is DeepMind's Python component of the StarCraft II Learning Environment (<strong>SC2LE</strong>). It exposes Blizzard Entertainment's StarCraft II Machine Learning API as a Python RL Environment. 
+This is a collaboration between DeepMind and Blizzard to develop StarCraft II into a rich environment for RL research. PySC2 provides an interface for RL agents to interact with StarCraft 2, getting observations and rewards and sending actions.
+</p>
+
 
 ### Objectives
 
