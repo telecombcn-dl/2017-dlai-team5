@@ -35,7 +35,7 @@ From a reinforcement learning perspective, StarCraft II also offers an unparalle
 
 ### PySC2 Environment
 
-| <img src="images/logo_sc2.jpg" width="200"   alt="" /> | <img src="images/Luis.jpg" width="200"  alt="" /> | <img src="images/Luis.jpg" width="200"  alt="" /> |
+| <img src="images/logo_sc2.png" width="200"   alt="" /> | <img src="images/logo_deepmind.png" width="200"  alt="" /> | <img src="images/logo_python.png" width="200"  alt="" /> |
 | :---: | :---: | :---: |
 | StarCarft II | Google DeepMind | Python |
 
