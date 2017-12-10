@@ -15,5 +15,7 @@ This project was developed during the [Deep Learning for Artificial Intelligence
 <img src="https://github.com/telecombcn-dl/2017-dlai-team5/blob/master/images/img-sc2-logo--large.png">
 </p>
 
+<p><img src="https://assets-cdn.github.com/images/icons/emoji/octocat.png" alt="" /></p>
+
 As defined on the Blizzard website (the company that develops the game) 'StarCraft II: Wings of Liberty is the long-awaited sequel to the original StarCraft, Blizzard Entertainment’s critically acclaimed sci-fi real-time strategy (RTS) game. StarCraft II: Wings of Liberty is both a challenging single-player game and a fast-paced multiplayer game.
 In typical real-time strategy games, players build armies and vie for control of the battlefield. The armies in play can be as small as a single squad of Marines or as large as a full-blown planetary invasion force. As commander, you observe the battlefield from a top-down perspective and issue orders to your units in real time. Strategic thinking is key to success; you need to gather information about your opponents, anticipate their moves, outflank their attacks, and formulate a winning strategy.'
