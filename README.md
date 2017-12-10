@@ -49,7 +49,9 @@ Scheme 1 explains how SC2LE works combining StarCarft II API with Google DeepMin
 </p>
 
 <p align="center">
-<img src="images/img-sc2-logo--large.png"  alt="" />
+  <img src="images/sc2le.png"  alt="" />
+  <br/>
+  Sheme 1. SC2LE
 </p>
 
 ### Objectives
