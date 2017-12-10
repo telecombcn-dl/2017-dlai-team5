@@ -30,9 +30,9 @@ if __name__ == "__main__":
     for t in zip(*series):
         long_series += list(t)
     episodes = range(1, 5*len(long_series)+1, 5)
-    N_avg = 100
+    N_avg = 75
     long_series_avg = np.convolve(long_series, np.ones(N_avg)/N_avg, mode='same')
-    plt.plot(episodes, long_series, '#d3ebd5')
+    plt.plot(episodes[:-N_avg], long_series[:-N_avg], '#d3ebd5')
     # plt.hold('on')
     plt.plot(episodes[:-N_avg], long_series_avg[:-N_avg], '#01597f', linewidth=2.0)
     plt.xlabel('#Episode')
