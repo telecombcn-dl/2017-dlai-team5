@@ -32,9 +32,11 @@ from pysc2.env import environment
 from pysc2.lib import actions, features
 from pysc2.maps import mini_games
 
+_VISIBILITY = features.SCREEN_FEATURES.visibility_map.index
 _PLAYER_RELATIVE = features.SCREEN_FEATURES.player_relative.index
 _PLAYER_FRIENDLY = 1
 _PLAYER_HOSTILE = 4
+_VISIBLE = 2
 INF = float('inf')
 
 """
@@ -68,6 +70,12 @@ def count_units(obs, minimap=False):
     imin = imin[_PLAYER_RELATIVE]
     _, number_of_units = measure.label(imin, connectivity=1, return_num=True)
     return number_of_units
+
+def proportion_visible_onscreen(obs):
+    obs = obs.observation
+    imin = obs['screen'][_VISIBILITY]
+    visible_pix = np.count_nonzero(imin == _VISIBLE)
+    return visible_pix / imin.size
 
 #################
 
@@ -404,6 +412,7 @@ class Worker():
                                 # [NEW] Alejandro
                                 self.last_min_dist_to_enemy = min_distance_to_enemy(obs[0], minimap=True)
                                 self.units_in_frame = count_units(obs[0], minimap=False)
+                                self.visible_prop = proportion_visible_onscreen(obs[0])
                                 #################
 
                                 episode_frames.append(obs[0])
@@ -459,33 +468,40 @@ class Worker():
 
                                         last_dist = self.last_min_dist_to_enemy
                                         curr_dist = min_distance_to_enemy(obs[0], minimap=True)
-                                        # if last_dist == INF and curr_dist < INF:
-                                            # # print("Zergling discovered!")
-                                            # r_modified += 0.2 # Zergling discovered
-                                        # elif last_dist < INF and curr_dist == INF:
-                                            # if r <= 0 and not episode_end:
+                                        if last_dist == INF and curr_dist < INF:
+                                            # print("Zergling discovered!")
+                                            r_modified += 0.2 # Zergling discovered
+                                        elif last_dist < INF and curr_dist == INF:
+                                            if r <= 0 and not episode_end:
                                                 # print("The marines have lost all the Zerglings!")
-                                                # r_modified -= 0.2 # # don't flee!
-                                        # elif last_dist == INF and curr_dist == INF:
-                                            # pass
-                                            # # print("no zerglings")
-                                        if last_dist < INF and curr_dist < INF and r <= 0:
-                                            r_modified += (last_dist - curr_dist)/20
+                                                r_modified -= 1.0 # # don't flee!
+                                        elif last_dist == INF and curr_dist == INF:
+                                            pass
+                                            # print("no zerglings")
+                                        elif last_dist < INF and curr_dist < INF and r <= 0:
+                                            r_modified += (last_dist - curr_dist)/10
                                             if isnan(r_modified): print("NaN at point A")
                                              
                                         self.last_min_dist_to_enemy = curr_dist
 
-                                        curr_units = count_units(obs[0], minimap=False)
+                                        # curr_units = count_units(obs[0], minimap=False)
+                                        curr_prop = proportion_visible_onscreen(obs[0])
                                         if base_action == 1:
-                                            last_units = self.units_in_frame
-                                            r_modified += 0.5*(curr_units - last_units)
-                                            if isnan(r_modified): print("NaN at point B")
-                                            if curr_units > last_units:
+                                            last_prop = self.visible_prop
+                                            if curr_prop > last_prop:
                                                 print("better camera frame")
-                                            elif curr_units < last_units:
+                                            elif curr_prop < last_prop:
                                                 print("worse camera frame")
-
-                                        self.units_in_frame = curr_units
+                                            r_modified += 2*(curr_prop - last_prop)
+                                            # last_units = self.units_in_frame
+                                            # r_modified += 0.5*(curr_units - last_units)
+                                            # if isnan(r_modified): print("NaN at point B")
+                                            # if curr_units > last_units:
+                                                # print("better camera frame")
+                                            # elif curr_units < last_units:
+                                                # print("worse camera frame")
+                                        self.visible_prop = curr_prop
+                                        # self.units_in_frame = curr_units
                                         #################
 
                                         if not episode_end:
