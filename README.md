@@ -258,9 +258,9 @@ alt="RL Agents" width="240" height="180" border="10" /></a>
 
 ## References
 
-1. Vinyals, O., Ewalds, T., Bartunov, S., Georgiev, P., Vezhnevets, A. S., Yeo, M., … Tsing, R. (2017). StarCraft II: A New Challenge for Reinforcement Learning. https://doi.org/https://deepmind.com/documents/110/sc2le.pdf
+1. Vinyals, O., Ewalds, T., Bartunov, S., Georgiev, P., Vezhnevets, A. S., Yeo, M., … Tsing, R. (2017). StarCraft II: A New Challenge for Reinforcement Learning, [link](https://doi.org/https://deepmind.com/documents/110/sc2le.pdf)
 2. Simple Reinforcement Learning with Tensorflow series, Arthur Juliani, [link](https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-0-q-learning-with-tables-and-neural-networks-d195264329d0) (Accessed: 2017/12/11)
-3. Volodymyr Mnih, Adria Puigdomenech Badia, Mehdi Mirza, Alex Graves, Timothy P Lillicrap, Tim Harley, David Silver, and Koray Kavukcuoglu. Asynchronous methods for deep reinforcement learning. ICML, 2016. http://www.jmlr.org/proceedings/papers/v48/mniha16.pdf
-4. Szepesvári, C. (2010). Algorithms for reinforcement learning. Synthesis lectures on artificial intelligence and machine learning.
-5. Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., & Riedmiller, M. (2013). Playing Atari with Deep Reinforcement Learning, 1–9. https://doi.org/10.1038/nature14236
+3. Volodymyr Mnih, Adria Puigdomenech Badia, Mehdi Mirza, Alex Graves, Timothy P Lillicrap, Tim Harley, David Silver, and Koray Kavukcuoglu. Asynchronous methods for deep reinforcement learning. ICML, 2016, [link](http://www.jmlr.org/proceedings/papers/v48/mniha16.pdf)
+4. Szepesvári, C. (2010). Algorithms for reinforcement learning. Synthesis lectures on artificial intelligence and machine learning, [link](http://www.morganclaypool.com/doi/abs/10.2200/S00268ED1V01Y201005AIM009)
+5. Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., & Riedmiller, M. (2013). Playing Atari with Deep Reinforcement Learning, 1–9, [link](https://doi.org/10.1038/nature14236)
 
