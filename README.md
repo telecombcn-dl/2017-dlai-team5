@@ -71,10 +71,25 @@ Playing the whole game is quite an ambitious goal that currently is only whithin
   <li>Dealing and try to improve the reward system (reward "hacking").</li>
 </ul>
 
-
 ## Techniques
 
-### Learning Curves
+### Learning Curve
+
+Before starting to train the SC2 agents, we went through a series of [tutorials](https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-0-q-learning-with-tables-and-neural-networks-d195264329d0), which implement in [TensorFlow](https://www.tensorflow.org/) the different RL algorithms applied to the [OpenAI GYM](https://gym.openai.com/envs/) environament.
+
+The series goes through the following topics:
+<ul>
+  <li>Q-Learning with Tables and Neural Networks</li> https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-0-q-learning-with-tables-and-neural-networks-d195264329d0
+  <li>Two-armed Bandit</li> https://medium.com/@awjuliani/super-simple-reinforcement-learning-tutorial-part-1-fd544fab149
+  <li>Contextual Bandits</li> https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-1-5-contextual-bandits-bff01d1aad9c
+  <li>Policy-based Agents</li> https://medium.com/@awjuliani/super-simple-reinforcement-learning-tutorial-part-2-ded33892c724
+  <li>Model-Based RL</li> https://medium.com/@awjuliani/simple-reinforcement-learning-with-tensorflow-part-3-model-based-rl-9a6fe0cce99
+  <li>Deep Q-Networks and Beyond</li> https://medium.com/@awjuliani/simple-reinforcement-learning-with-tensorflow-part-4-deep-q-networks-and-beyond-8438a3e2b8df
+  <li>Visualizing an Agent’s Thoughts and Actions</li> https://medium.com/@awjuliani/simple-reinforcement-learning-with-tensorflow-part-5-visualizing-an-agents-thoughts-and-actions-4f27b134bb2a
+  <li>Partial Observability and Deep Recurrent Q-Networks</li> https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-6-partial-observability-and-deep-recurrent-q-68463e9aeefc
+  <li>Action-Selection Strategies for Exploration</li> https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-7-action-selection-strategies-for-exploration-d3a97b7cceaf
+  <li>Asynchronous Actor-Critic Agents (A3C)</li> https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-8-asynchronous-actor-critic-agents-a3c-c88f72a5e9f2
+</ul>
 
 ### A3C
 
@@ -97,7 +112,8 @@ Their interaction is depicted more clearly in Fig. 2.
   <img src="images/actor-critic.png" width="400" alt="" />
   <br/>
   <br/>
-  Fig. 2: The interaction between the Actor-Critic components. Source [4].
+  Fig. 2: The interaction bet
+  en the Actor-Critic components. Source [4].
 </p>
 
 The reason for the policy being stochastic is that otherwise there will be not room for improvement: the critic must learn about actions that are not preferred (i.e. have a low probability in the current policy). This allows discovering alternative sequence of operations that seemed unpromising at first but lead to a higher accumulated reward at the end. More interestengly, one could wonder why then it is not better to act completely randomly in order to learn as much of possible. This is, however, undesirable since random policy are very unlikely to discover the interesting (i.e. the most advantageous) areas of the state space, namely, the ones associated with good performance.
