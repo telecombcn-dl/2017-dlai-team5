@@ -2,7 +2,7 @@
 # Playing StarCraft II with Reinforcement Learning 
 This is the project repository for the group 5 at the DLAI. The Team is made up by:
 
-| <img src="images/Luis.jpg" width="200"   alt="" /> | <img src="images/Luis.jpg" width="200"  alt="" /> | <img src="images/Luis.jpg" width="200"  alt="" /> | <img src="images/Alejandro.png" width="200"  alt="" /> |
+| <img src="images/Luis.jpg" width="200"   alt="" /> | <img src="images/Godefroy.JPG" width="200"  alt="" /> | <img src="images/Luis.jpg" width="200"  alt="" /> | <img src="images/Alejandro.png" width="200"  alt="" /> |
 | :---: | :---: | :---: | :---: |
 | Luis Esteve Elfau | Godefroy Goffe | Carlos Roig Marí | Alejandro Suárez Hernández |
 
