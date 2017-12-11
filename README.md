@@ -76,7 +76,7 @@ Playing the whole game is quite an ambitious goal that currently is only whithin
 ### Learning Curve
 
 <p style="text-align: justify">
-Before starting to train the SC2 agents, we went through a series of [tutorials](https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-0-q-learning-with-tables-and-neural-networks-d195264329d0), which implement in [TensorFlow](https://www.tensorflow.org/) the different RL algorithms applied to the [OpenAI GYM](https://gym.openai.com/envs/) environament.
+Before starting to train the SC2 agents, we went through a series of [tutorials](https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-0-q-learning-with-tables-and-neural-networks-d195264329d0), which implement in [TensorFlow](https://www.tensorflow.org/) the different RL algorithms applied to the [OpenAI GYM](https://gym.openai.com/envs/) environment.
 </p>
 
 <p style="text-align: justify">
@@ -218,13 +218,19 @@ We can see at Fig. 5 that this has indeed a positive effect in the learning spee
   <img src="images/Comparison_GPU.png" width="500" alt="" />
   <br/>
   <br/>
-  Fig. 6: Agent that uses modified ("hacked") rewards vs original agent. Of course, for the sake of comparing both executions in fair conditions only the original rewards (the ones given originally by the environment) are shown. The modified rewards are used internally to update the network.
+  Fig. 5: Agent that uses modified ("hacked") rewards vs original agent. Of course, for the sake of comparing both executions in fair conditions only the original rewards (the ones given originally by the environment) are shown. The modified rewards are used internally to update the network.
 </p>
 
 <p align="center">
-In addition to this, we have performed several executions to analyze the effect of the learning rate upon the performance of the algorithm with modified rewards. The results are shown in Fig. 6.
+In addition to this, we have performed several executions to analyze the effect of the learning rate upon the performance of the algorithm with modified rewards. The results are shown in Fig. 7.
 </p>
 
+<p align="center">
+  <img src="images/Learning_rate_comparison.png" width="500" alt="" />
+  <br/>
+  <br/>
+  Fig. 6: Different executions varying the learning rate. The executions corresponding to the green and blue curves where halted prematurely because the seemed rather unpromissing. On the other hand, the algorithm seems to perform well enough with a learning rate of 0.0001 and 0.00001. We cannot conclude which will behave better in the long run.
+</p>
 
 
 ## Results and Conclusions
