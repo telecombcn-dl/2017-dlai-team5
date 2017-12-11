@@ -220,6 +220,11 @@ In our experiments (somewhat limited because of our resources), we have found th
 All in all, we believe this to be a fun and challenging task for those interested in the realm of artificial intelligence. In the future we seek to keep learning about this topic and add our own contributions to the field, or apply it to other tasks. We also believe that RL has very promising real-world applications, like assistive robotics or automation and control.
 </p>
 
+### Video example of a trained agent
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=uMiJt4UcZyo
+" target="_blank"><img align="center" src="http://img.youtube.com/vi/uMiJt4UcZyo/0.jpg" 
+alt="RL Agents" width="240" height="180" border="10" /></a>
+
 ## References
 
 1. Vinyals, O., Ewalds, T., Bartunov, S., Georgiev, P., Vezhnevets, A. S., Yeo, M., … Tsing, R. (2017). StarCraft II: A New Challenge for Reinforcement Learning. https://doi.org/https://deepmind.com/documents/110/sc2le.pdf
