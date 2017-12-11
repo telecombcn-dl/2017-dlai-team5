@@ -150,8 +150,56 @@ On the other hand, the *Asynchronous* part of the name refers to the fact that A
 All the updates to the network are performed asynchronously, and since the policy is shared, the workers will benefit from the experiences of their siblings.
 </p>
 
-## Methodology
+## Training RL agents
 
+### Objective
+
+<p style="text-align: justify">
+It is our objective to experiment with Reinforcement Learning techniques and analyze their suitability for the StarCraft II game.  We bound our scope to one of the mini-games from the Deep Mind's suite: Find and Destroy Zerglings. We believe that a good player for this game should display a good balance between exploration and combat skills. As for the algorithm, as previously said, we use A3C, encoding the policy with AtariNet [5] (Fig. 3).
+</p>
+
+<p align="center">
+  <img src="images/Atari-net.png" width="400" alt="" />
+  <br/>
+  <br/>
+  Fig. 3: Atari-Net. Source [1].
+</p>
+
+<p style="text-align: justify">
+The chosen mini-games consists in hunting down Zerglings on a small map using exclusively 3 marines. The position of the Zerglings is unknown a priori, so the player has to explore the map in order to find them. One of the main challenges of this mini-game is that initially there are 19 Zerglings, and enemies respawn only when the previous wave has been cleared. This means that as the episode progresses and the marines kill Zerglings, it gets increasingly difficult to find the next one. We will see that this has a serious impact in the performance of the agent.
+</p>
+
+### Initial set-up and results
+
+<p style="text-align: justify">
+In order to get some sort of tentative results we executed the Hu's implementation in a Google Cloud server for 7 days, with the following specifications:
+</p>
+
+- 2 K80 GPUs
+- 4 virtual cores
+- 10GB of RAM
+
+<p style="text-align: justify">
+The results were kind of underwhelming: we managed to simulate just around 180000 episodes, stalling at an accumulated reward around 20. At this point it is important to highlight the fact that this reward is very hard to surpass because of strict respawn rules imposed by the mini-game. Moreover, it is very difficult to train for this kind of scenarios under the no-memory assumption adopted by Markov Decision Processes (MDP), the underlying mathematical formalism in which RL is based on (although DeepMind has also used LSTMs in their network, overcoming this issue up to certain extend but moving away from the theoretical guarantees provided by MDPs). Of course, as shown by DeepMind's results the agent can develop an effective strategy for exploring this map even under the no memory assumption. Fig. 4 shows a comparative between our results and theirs. One of the main facts that can be inferred from this chart is that DeepMind has spent a very high amount of resources in obtaining such good results. Our results are too far from this level of performance, but then again, we cannot afford 600M of simulations.
+</p>
+
+<p align="center">
+  <img src="images/dm_vs_hu180k.png" width="900" alt="" />
+  <br/>
+  <br/>
+  Fig. 4: (Left) Results after 7 days of training vs (Right) DeepMind results. At the right hand side, the colors represent: (1) Light red, Atari-Net; (2) Light blue, Fully Conv.; (3) Dark blue, Fully Conv. with LSTM.
+</p>
+
+<p style="text-align: justify">
+Interestingly enough, it is possible to observe that even in some of the configurations employed by DeepMind (namely the one with LSTM and AtariNet) they still experience the same issue with the plateau around 20 at the begining of the training. After 100M of episodes the results remain fairly stable.
+</p>
+
+<p style="text-align: justify">
+The main conclusion we draw from this is that training for Reinforcement Learning is very expensive, both in terms of time and money:
+</p>
+
+- We have estimated that we were simulating near to 26000 episodes per day. At this pace, we would need more than 23000 days (more than 60 years) to complete 600M of episodes (or 10 years for just 100M).
+- On the other hand, the estimate of the cost of such training is around $643,963 (Google Cloud fees: $1.15 per hour).
 
 
 ## Results and Conclusions
@@ -178,4 +226,5 @@ All in all, we believe this to be a fun and challenging task for those intereste
 2. Simple Reinforcement Learning with Tensorflow series, Arthur Juliani, [link](https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-0-q-learning-with-tables-and-neural-networks-d195264329d0) (Accessed: 2017/12/11)
 3. Volodymyr Mnih, Adria Puigdomenech Badia, Mehdi Mirza, Alex Graves, Timothy P Lillicrap, Tim Harley, David Silver, and Koray Kavukcuoglu. Asynchronous methods for deep reinforcement learning. ICML, 2016. http://www.jmlr.org/proceedings/papers/v48/mniha16.pdf
 4. Szepesvári, C. (2010). Algorithms for reinforcement learning. Synthesis lectures on artificial intelligence and machine learning.
+5. Mnih, V., Kavukcuoglu, K., Silver, D., Graves, A., Antonoglou, I., Wierstra, D., & Riedmiller, M. (2013). Playing Atari with Deep Reinforcement Learning, 1–9. https://doi.org/10.1038/nature14236
 
