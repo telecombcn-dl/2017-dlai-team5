@@ -77,7 +77,9 @@ Playing the whole game is quite an ambitious goal that currently is only whithin
 
 <p style="text-align: justify">
 Before starting to train the SC2 agents, we went through a series of [tutorials](https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-0-q-learning-with-tables-and-neural-networks-d195264329d0), which implement in [TensorFlow](https://www.tensorflow.org/) the different RL algorithms applied to the [OpenAI GYM](https://gym.openai.com/envs/) environament.
+</p>
 
+<p style="text-align: justify">
 The series goes through the following topics:
 </p>
 
@@ -112,10 +114,12 @@ AC algorithms maintain and update a stochastic policy. This is, a map from the c
 
 <p style="text-align: justify">
 AC algorithms implement *generalized policy iteration* or GPI which. This method aims at improving the policy with incomplete information, that is, state, actions and rewards tuples sampled via simulation. GPI consist of two subsystems:
+</p>
 
 - The **critic**: whose role is evaluating the current policy.
 - **Actor**: whose role is acting upon the environment and updating its policy according to the critic's evaluation.
 
+<p style="text-align: justify">
 Their interaction is depicted more clearly in Fig. 2. 
 </p>
 
@@ -129,14 +133,20 @@ Their interaction is depicted more clearly in Fig. 2.
 
 <p style="text-align: justify">
 The reason for the policy being stochastic is that otherwise there will be not room for improvement: the critic must learn about actions that are not preferred (i.e. have a low probability in the current policy). This allows discovering alternative sequence of operations that seemed unpromising at first but lead to a higher accumulated reward at the end. More interestengly, one could wonder why then it is not better to act completely randomly in order to learn as much of possible. This is, however, undesirable since random policy are very unlikely to discover the interesting (i.e. the most advantageous) areas of the state space, namely, the ones associated with good performance.
+</p>
 
+<p style="text-align: justify">
 A3C works by updating the policy using the so called advantage. The advantage is an estimate of how much increasing the probability of executing an action in a given state would contribute to increase or worsen the long-term reward. The critic calculates this advantage using a forward n-step strategy: this is, aggregating a sequence of up to n (discounted) rewards, obtained following the current policy, plus the approximation of the value function of the last state, minus the estimate of the value of the state at the beginning of the sequence. The idea is to use this advantage to modulate the strength of the update applied to the network (that is computed as the gradient of the likelihood with respect to its parameters). We refer the reader to the original A3C paper [3] and to the Actor-Critic literature [4] for more details on this.
+</p>
 
+<p style="text-align: justify">
 On the other hand, the *Asynchronous* part of the name refers to the fact that A3C launches in parallel several workers that share the same policy network. This is advantageous mainly for two reasons:
+</p>
 
 - First and more obviously, the gain in raw learning speed, since several workers will be executing episodes in parallel.
 - Secondly and, perhaps more importantly from a theoretical point of view, the workers may have different exploratory parameters, therefore increasing the diversity of their experiences. This means, in practice, that the data used to train the network will be more uncorrelated and the learning will be much more rich.
 
+<p style="text-align: justify">
 All the updates to the network are performed asynchronously, and since the policy is shared, the workers will benefit from the experiences of their siblings.
 </p>
 
@@ -146,11 +156,17 @@ All the updates to the network are performed asynchronously, and since the polic
 
 <p style="text-align: justify">
 Of course, we have not achieved Deep Mind's performance, which is beyond our reach in terms of resources. More importantly, our work has been more about exploration, researching and learning rather than about constructing new techniques and pushing forward the state of the art. Along the way, we have introduced ourselves into the fascinating world of Reinforcement Learning ("the cherry on the top"), from which we did not know anything initially, or had very high-level understanding.
+</p>
 
+<p style="text-align: justify">
 We have applied the concept of "reward hacking" to speed-up the learning of the agent with problem specific information. Of course, this is a double-edge sword since on the one hand we can enrich the otherwise sparse reward with domain-specific knowledge, avoiding the many trials-and-errors of less informed search; but on the other hand we have to manipulate the reward to include this domain knowledge, which can be very difficult, and loses a great deal of the appeal and generality of ready-to-go RL algorithms. It is our belief, however, that using RL alone to play StarCraft II will be very challenging and perhaps unfeasible with the current state of the art, unless it is combined with other technique, or used as a subsystem of a more complex artificial intelligence player.
+</p>
 
+<p style="text-align: justify">
 In our experiments (somewhat limited because of our resources), we have found that the default learning rate (0.0001) in the algorithms we tested is indeed well chosen: bigger learning rates result in unstable learning problems while lower learning rates result in very slow learning. On the other hand, tweaking the reward to include domain specific knowledge has resulted in mixed results. While the performance seems to grow faster at the beginning, it stalls around 19. In the mini-game we chose, 19 turns out to be a quite critical score because enemies do not respawn until the first 19 ones have been killed, which requires an efficient exploration technique.
+</p>
 
+<p style="text-align: justify">
 All in all, we believe this to be a fun and challenging task for those interested in the realm of artificial intelligence. In the future we seek to keep learning about this topic and add our own contributions to the field, or apply it to other tasks. We also believe that RL has very promising real-world applications, like assistive robotics or automation and control.
 </p>
 
