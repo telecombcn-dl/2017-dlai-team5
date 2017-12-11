@@ -113,6 +113,8 @@ All the updates to the network are performed asynchronously, and since the polic
 
 ## Methodology
 
+
+
 ## Results and Conclusions
 
 Of course, we have not achieved Deep Mind's performance, which is beyond our reach in terms of resources. More importantly, our work has been more about exploration, researching and learning rather than about constructing new techniques and pushing forward the state of the art. Along the way, we have introduced ourselves into the fascinating world of Reinforcement Learning ("the cherry on the top"), from which we did not know anything initially, or had very high-level understanding.
