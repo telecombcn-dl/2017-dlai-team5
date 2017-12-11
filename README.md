@@ -8,6 +8,8 @@ This is the project repository for the group 5 at the DLAI. The Team is made up 
 
 This project was developed during the [Deep Learning for Artificial Intelligence](https://telecombcn-dl.github.io/2017-dlai/) Course at UPC TelecomBCN, Autumn 2017.
 
+This was presented in the DLAI session of 2017/12/12. The slides are accessible through [this link](https://docs.google.com/presentation/d/1yAylc9Lb0OZKjfMFcl1GSrQtMchUVVlH8O2RS9Ua_JA/edit?usp=sharing).
+
 <p align="center">
 <img src="images/logo-etsetb.png" width=""  alt="" />
 </p>
