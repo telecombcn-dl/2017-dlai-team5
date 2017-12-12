@@ -115,11 +115,11 @@ AC algorithms maintain and update a stochastic policy. This is, a map from the c
 </p>
 
 <p style="text-align: justify">
-AC algorithms implement *generalized policy iteration* or GPI which. This method aims at improving the policy with incomplete information, that is, state, actions and rewards tuples sampled via simulation. GPI consist of two subsystems:
+AC algorithms implement <i>Generalized Policy Iteration</i> or GPI. This method aims at improving the policy with incomplete information, that is, state, actions and rewards tuples sampled via simulation. GPI consist of two subsystems:
 </p>
 
 - The **critic**: whose role is evaluating the current policy.
-- **Actor**: whose role is acting upon the environment and updating its policy according to the critic's evaluation.
+- The **Actor**: whose role is acting upon the environment and updating its policy according to the critic's evaluation.
 
 <p style="text-align: justify">
 Their interaction is depicted more clearly in Fig. 2. 
@@ -134,15 +134,15 @@ Their interaction is depicted more clearly in Fig. 2.
 </p>
 
 <p style="text-align: justify">
-The reason for the policy being stochastic is that otherwise there will be not room for improvement: the critic must learn about actions that are not preferred (i.e. have a low probability in the current policy). This allows discovering alternative sequence of operations that seemed unpromising at first but lead to a higher accumulated reward at the end. More interestengly, one could wonder why then it is not better to act completely randomly in order to learn as much of possible. This is, however, undesirable since random policy are very unlikely to discover the interesting (i.e. the most advantageous) areas of the state space, namely, the ones associated with good performance.
+The reason for the policy being stochastic is that otherwise there will be not room for improvement: the critic must learn about actions that are not preferred (i.e. actions that have a low probability in the current policy). This allows discovering alternative sequences of operations that seemed unpromising at first but lead to a higher accumulated reward at the end. More interestengly, one could wonder why then it is not better to act completely randomly in order to learn as much of possible. This is, however, undesirable since random policy are very unlikely to discover the interesting (i.e. the most advantageous) areas of the state space, namely, the ones associated with good performance.
 </p>
 
 <p style="text-align: justify">
-A3C works by updating the policy using the so called advantage. The advantage is an estimate of how much increasing the probability of executing an action in a given state would contribute to increase or worsen the long-term reward. The critic calculates this advantage using a forward n-step strategy: this is, aggregating a sequence of up to n (discounted) rewards, obtained following the current policy, plus the approximation of the value function of the last state, minus the estimate of the value of the state at the beginning of the sequence. The idea is to use this advantage to modulate the strength of the update applied to the network (that is computed as the gradient of the likelihood with respect to its parameters). We refer the reader to the original A3C paper [3] and to the Actor-Critic literature [4] for more details on this.
+A3C works by updating the policy using the so called advantage. The advantage is an estimate of how much increasing the probability of executing an action in a given state would contribute to increase or worsen the long-term reward. The critic calculates this advantage using a forward n-step strategy: that is, aggregating a sequence of up to n (discounted) rewards, obtained following the current policy, plus the approximation of the value function of the last state, minus the estimate of the value of the state at the beginning of the sequence. The idea is to use this advantage to modulate the strength of the update applied to the network (that is computed as the gradient of the likelihood with respect to its parameters). We refer the reader to the original A3C paper [3] and to the Actor-Critic literature [4] for more details on this.
 </p>
 
 <p style="text-align: justify">
-On the other hand, the *Asynchronous* part of the name refers to the fact that A3C launches in parallel several workers that share the same policy network. This is advantageous mainly for two reasons:
+On the other hand, the <i>Asynchronous</i> part of the name refers to the fact that A3C launches in parallel several workers that share the same policy network. This is advantageous mainly for two reasons:
 </p>
 
 - First and more obviously, the gain in raw learning speed, since several workers will be executing episodes in parallel.
@@ -157,7 +157,7 @@ All the updates to the network are performed asynchronously, and since the polic
 ### Objective
 
 <p style="text-align: justify">
-It is our objective to experiment with Reinforcement Learning techniques and analyze their suitability for the StarCraft II game.  We bound our scope to one of the mini-games from the Deep Mind's suite: Find and Destroy Zerglings. We believe that a good player for this game should display a good balance between exploration and combat skills. As for the algorithm, as previously said, we use A3C, encoding the policy with AtariNet [5] (Fig. 3).
+It is our objective to experiment with Reinforcement Learning techniques and analyze their suitability for the StarCraft II game. We bound our scope to one of the mini-games from the Deep Mind's suite: Find and Destroy Zerglings. We believe that a top performer player for this game should display a good balance between exploration and combat skills. As for the algorithm, as previously said, we use A3C, encoding the policy with AtariNet [5] (Fig. 3).
 </p>
 
 <p align="center">
@@ -182,7 +182,7 @@ In order to get some sort of tentative results we executed the Hu's implementati
 - 10GB of RAM
 
 <p style="text-align: justify">
-The results were kind of underwhelming: we managed to simulate just around 180000 episodes, stalling at an accumulated reward around 20. At this point it is important to highlight the fact that this reward is very hard to surpass because of strict respawn rules imposed by the mini-game. Moreover, it is very difficult to train for this kind of scenarios under the no-memory assumption adopted by Markov Decision Processes (MDP), the underlying mathematical formalism in which RL is based on (although DeepMind has also used LSTMs in their network, overcoming this issue up to certain extend but moving away from the theoretical guarantees provided by MDPs). Of course, as shown by DeepMind's results the agent can develop an effective strategy for exploring this map even under the no memory assumption. Fig. 4 shows a comparative between our results and theirs. One of the main facts that can be inferred from this chart is that DeepMind has spent a very high amount of resources in obtaining such good results. Our results are too far from this level of performance, but then again, we cannot afford 600M of simulations.
+The results were kind of underwhelming: we managed to simulate just around 180000 episodes, stalling at an accumulated reward around 20. At this point, it is important to highlight the fact that this reward is very hard to surpass because of the strict respawn rules imposed by the mini-game. Moreover, it is very difficult to train for this kind of scenarios under the no-memory assumption adopted by Markov Decision Processes (MDP), the underlying mathematical formalism in which RL is based on (although DeepMind has also used LSTMs in one of their network, overcoming this issue up to certain extend but moving away from the theoretical guarantees provided by MDPs). Of course, as shown by DeepMind's results, the agent can develop an effective strategy for exploring this map even under the no memory assumption. Fig. 4 shows a comparative between our results and theirs. One of the main facts that can be inferred from this chart is that DeepMind has spent a very high amount of resources in obtaining such good results. Our results are too far from this level of performance, but then again, we cannot afford 600M of simulations.
 </p>
 
 <p align="center">
@@ -246,14 +246,14 @@ We have applied the concept of "reward hacking" to speed-up the learning of the 
 </p>
 
 <p style="text-align: justify">
-In our experiments (somewhat limited because of our resources), we have found that the default learning rate (0.0001) in the algorithms we tested is indeed well chosen: bigger learning rates result in unstable learning problems while lower learning rates result in very slow learning. On the other hand, tweaking the reward to include domain specific knowledge has resulted in mixed results. While the performance seems to grow faster at the beginning, it stalls around 19. In the mini-game we chose, 19 turns out to be a quite critical score because enemies do not respawn until the first 19 ones have been killed, which requires an efficient exploration technique.
+In our experiments (somewhat limited because of our resources), we have found that the default learning rate (0.0001) in the algorithms we tested is indeed well chosen: bigger learning rates result in unstable learning problems while lower learning rates result in very slow learning. On the other hand, tweaking the reward to include domain specific knowledge has resulted in mixed results. While the performance seems to grow faster at the beginning, it stalls around 19. In the mini-game we chose, 19 turns out to be a quite critical score because enemies do not respawn until the first wave has been cleared out, which requires an efficient exploration technique.
 </p>
 
 <p style="text-align: justify">
 All in all, we believe this to be a fun and challenging task for those interested in the realm of artificial intelligence. In the future we seek to keep learning about this topic and add our own contributions to the field, or apply it to other tasks. We also believe that RL has very promising real-world applications, like assistive robotics or automation and control.
 </p>
 
-### Video example of a trained agent
+### Example video of a trained agent
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=uMiJt4UcZyo
 " target="_blank"><img align="center" src="http://img.youtube.com/vi/uMiJt4UcZyo/0.jpg" 
