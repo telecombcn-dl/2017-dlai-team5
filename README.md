@@ -107,7 +107,7 @@ The algorithm of choice for the most successful implementations of Reinforcement
 #### Theoretical Foundations
 
 <p style="text-align: justify">
-A3C is short for Asynchronous Advantage Actor Critic and belongs to the family of the so-called Actor-Critic (from now on, just AC) family of algorithms inside Reinforcement Learning. 
+A3C is short for Asynchronous Advantage Actor Critic and belongs to the family of the so-called Actor-Critic (from now on, just AC) algorithms inside Reinforcement Learning. 
 </p>
 
 <p style="text-align: justify">
