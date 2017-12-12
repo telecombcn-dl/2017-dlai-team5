@@ -210,7 +210,7 @@ We introduced domain specific knowledge as follows:
 </p>
 
 - We keep track of the minimum distance from the marines to the Zerglings. Each time this distance increases, we add a small penalty (negative reward) to discourage the marines from fleing, and add a small positive reward when they approach an enemy.
-- We believe that correctly managing the camera movements greatly influences the performance of the game, since having it centered in the region of interest (the region where most visble units are located) we increase the chance of hitting the right actions. The rationale is that there are actions for moving and attacking both in the minimap and in the main screen, and if the marines and Zerglings are outside the region covered by the camera, only the actions performed in the minimap are useful for killing Zerglings. For this reason, we add a small reward when the visible region covered by the camera increases after a camera movement.
+- We believe that correctly managing the camera movements greatly influences the performance of the game, since having it centered in the region of interest (the region where most visible units are located) we increase the chance of hitting the right actions. The rationale is that there are actions for moving and attacking both in the minimap and in the main screen, and if the marines and Zerglings are outside the region covered by the camera, only the actions performed in the minimap are useful for killing Zerglings. For this reason, we add a small reward when the visible region covered by the camera increases after a camera movement.
 
 <p style="text-align: justify">
 We can see at Fig. 5 that this has indeed a positive effect in the learning speed of the agent. However, we are not sure of the long term effects if we left the algorithm running for more time.
@@ -224,7 +224,7 @@ We can see at Fig. 5 that this has indeed a positive effect in the learning spee
 </p>
 
 <p align="center">
-In addition to this, we have performed several executions to analyze the effect of the learning rate upon the performance of the algorithm with modified rewards. The results are shown in Fig. 7.
+In addition to this, we have performed several executions to analyze the effect of the learning rate upon the performance of the algorithm with modified rewards. The results are shown in Fig. 6.
 </p>
 
 <p align="center">
