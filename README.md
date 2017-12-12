@@ -46,12 +46,12 @@ From a reinforcement learning perspective, StarCraft II also offers an unparalle
 | StarCarft II | Google DeepMind | Python |
 
 <p style="text-align: justify">
-PySC2 is DeepMind's Python component of the StarCraft II Learning Environment (<strong>SC2LE</strong>). It exposes Blizzard Entertainment's StarCraft II Machine Learning API as a Python reinforcement learning (<strong>RL</strong>) Environment. 
-This is a collaboration between DeepMind and Blizzard to develop StarCraft II into a rich environment for RL research. PySC2 provides an interface for RL agents to interact with StarCraft 2, getting observations and rewards and sending actions.
+PySC2 is DeepMind's Python interface for the StarCraft II Learning Environment (<strong>SC2LE</strong>). It exposes Blizzard Entertainment's StarCraft II Machine Learning API as a Python reinforcement learning (<strong>RL</strong>) Environment. 
+This is the result of the collaboration between DeepMind and Blizzard to make a rich research platform out of StarCraft II. PySC2 provides an API for RL agents to interact with StarCraft 2, getting observations and rewards and sending actions.
 </p>
 
 <p style="text-align: justify">
-Scheme 1 explains how SC2LE works combining StarCarft II API with Google DeepMind Libraries:
+Fig. 1 shows how SC2LE works combining StarCarft II API with Google DeepMind Libraries:
 </p>
 
 <p align="center">
@@ -64,7 +64,7 @@ Scheme 1 explains how SC2LE works combining StarCarft II API with Google DeepMin
 ### Objectives
 
 <p style="text-align: justify">
-Playing the whole game is quite an ambitious goal that currently is only whithin the reach of scripted agents. However, the StarCraft II learning environment provides several challenges that are most appropriate to test the learning capabilities of an intelligent agent. It is our intention to develop an intelligent Deep RL agent that can perform successfully on several mini-games with bound objectives. Moreover, we want to experiment with the reward system to see how several changes may influence the behaviour of the agent. That's why we can define our objectives by:
+Playing the whole game is quite an ambitious goal that is currently only whithin the reach of scripted agents. However, the StarCraft II learning environment provides several challenges that are most appropriate to test the learning capabilities of an intelligent agent. It is our intention to develop an intelligent Deep RL agent that performs successfully on one of the several mini-games with bound objectives. Moreover, we want to experiment with the reward system to see how several changes may influence the behaviour of the agent. That's why we can define our objectives as:
 </p>
 
 <ul>
@@ -101,7 +101,7 @@ The series goes through the following topics:
 ### A3C
 
 <p style="text-align: justify">
-The algorithm of choice for the most successful implementations of Reinforcement Learning agent for StarCraft II seems to be A3C [3]. We have worked on top of two implementations of A3C: [one by Xiaowei Hu](https://github.com/xhujoy/pysc2-agents); and [another by Lim Swee Kiat](https://github.com/greentfrapp/pysc2-RLagents), which at the same time is based on top of Juliani's tutorials on Reinforcement Learning with TensorFlow [2].
+The algorithm of choice for the most successful implementations of Reinforcement Learning agent for StarCraft II seems to be A3C [3]. We have worked on top of two implementations of A3C: <a href="https://github.com/xhujoy/pysc2-agents">one by Xiaowei Hu</a>; and <a href="https://github.com/greentfrapp/pysc2-RLagents">another by Lim Swee Kiat</a>, which at the same time is based on top of Juliani's tutorials about Reinforcement Learning with TensorFlow [2].
 </p>
 
 #### Theoretical Foundations
@@ -254,6 +254,8 @@ All in all, we believe this to be a fun and challenging task for those intereste
 </p>
 
 ### Video example of a trained agent
+<iframe width="560" height="315" src="https://www.youtube.com/embed/uMiJt4UcZyo" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=uMiJt4UcZyo
 " target="_blank"><img align="center" src="http://img.youtube.com/vi/uMiJt4UcZyo/0.jpg" 
 alt="RL Agents" width="240" height="180" border="10" /></a>
