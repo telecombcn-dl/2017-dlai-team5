@@ -41,9 +41,9 @@ From a reinforcement learning perspective, StarCraft II also offers an unparalle
 
 ### PySC2 Environment
 
-| <img src="images/logo_sc2.png" width="200"   alt="" /> | <img src="images/logo_deepmind.png" width="200"  alt="" /> | <img src="images/logo_python.png" width="200"  alt="" /> |
-| :---: | :---: | :---: |
-| StarCarft II | Google DeepMind | Python |
+| <img src="images/logo_sc2.png" width="200"   alt="" /> | <img src="images/logo_deepmind.png" width="200"  alt="" /> | <img src="images/logo_python.png" width="200"  alt="" /> | <img src="images/logo_tensorflow.png" width="200"  alt="" /> |
+| :---: | :---: | :---: | :---: |
+| StarCarft II | Google DeepMind | Python | TensorFlow |
 
 <p style="text-align: justify">
 PySC2 is DeepMind's Python component of the StarCraft II Learning Environment (<strong>SC2LE</strong>). It exposes Blizzard Entertainment's StarCraft II Machine Learning API as a Python reinforcement learning (<strong>RL</strong>) Environment. 
