@@ -101,7 +101,7 @@ The series goes through the following topics:
 ### A3C
 
 <p style="text-align: justify">
-The algorithm of choice for the most successful implementations of Reinforcement Learning agent for StarCraft II seems to be A3C [3]. We have worked on top of two implementations of A3C: [one by Xiaowei Hu](https://github.com/xhujoy/pysc2-agents); and [another by Lim Swee Kiat](https://github.com/greentfrapp/pysc2-RLagents), which at the same time is based on top of Juliani's tutorials on Reinforcement Learning with TensorFlow [2].
+The algorithm of choice for the most successful implementations of Reinforcement Learning agent for StarCraft II seems to be A3C [3]. We have worked on top of two implementations of A3C: <a href="https://github.com/xhujoy/pysc2-agents">one by Xiaowei Hu</a>; and <a href="https://github.com/greentfrapp/pysc2-RLagents">another by Lim Swee Kiat</a>, which at the same time is based on top of Juliani's tutorials on Reinforcement Learning with TensorFlow [2].
 </p>
 
 #### Theoretical Foundations
