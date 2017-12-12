@@ -254,7 +254,6 @@ All in all, we believe this to be a fun and challenging task for those intereste
 </p>
 
 ### Video example of a trained agent
-<iframe width="560" height="315" src="https://www.youtube.com/embed/uMiJt4UcZyo" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=uMiJt4UcZyo
 " target="_blank"><img align="center" src="http://img.youtube.com/vi/uMiJt4UcZyo/0.jpg" 
