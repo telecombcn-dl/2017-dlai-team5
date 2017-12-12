@@ -36,7 +36,7 @@ From a reinforcement learning perspective, StarCraft II also offers an unparalle
 
 <ol>
   <li>It is a multi-agent problem in which several players compete for influence and resources. It is also multi-agent at a lower-level: each player controls hundreds of units, which need to collaborate to achieve a common goal.</li>
-  <li>It is an imperfect information game. The map is only partially observed via a local camera, which must be actively moved in order for the player to integrate.</li>
+  <li>It is an imperfect information game. Only the part of the map covered by the field of view of the player's units is actually visible (the rest is covered by the so called war fog). Therefore, the player cannot be aware of all the opponents actions. Also, they do not have any knowledge about the terrain (environmental entities like trees, mountains and rivers and resources like minerals) until they visit it at least once.</li>
 </ol>
 
 ### PySC2 Environment
