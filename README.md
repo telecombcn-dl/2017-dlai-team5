@@ -86,16 +86,16 @@ The series goes through the following topics:
 </p>
 
 <ul>
-  <li>Q-Learning with Tables and Neural Networks</li> [link](https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-0-q-learning-with-tables-and-neural-networks-d195264329d0)
-  <li>Two-armed Bandit</li> [link](https://medium.com/@awjuliani/super-simple-reinforcement-learning-tutorial-part-1-fd544fab149)
-  <li>Contextual Bandits</li> [link](https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-1-5-contextual-bandits-bff01d1aad9c)
-  <li>Policy-based Agents</li> [link](https://medium.com/@awjuliani/super-simple-reinforcement-learning-tutorial-part-2-ded33892c724)
-  <li>Model-Based RL</li> [link](https://medium.com/@awjuliani/simple-reinforcement-learning-with-tensorflow-part-3-model-based-rl-9a6fe0cce99)
-  <li>Deep Q-Networks and Beyond</li> [link](https://medium.com/@awjuliani/simple-reinforcement-learning-with-tensorflow-part-4-deep-q-networks-and-beyond-8438a3e2b8df)
-  <li>Visualizing an Agent’s Thoughts and Actions</li> [link](https://medium.com/@awjuliani/simple-reinforcement-learning-with-tensorflow-part-5-visualizing-an-agents-thoughts-and-actions-4f27b134bb2a)
-  <li>Partial Observability and Deep Recurrent Q-Networks</li> [link](https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-6-partial-observability-and-deep-recurrent-q-68463e9aeefc)
-  <li>Action-Selection Strategies for Exploration</li> [link](https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-7-action-selection-strategies-for-exploration-d3a97b7cceaf)
-  <li>Asynchronous Actor-Critic Agents (A3C)</li> [link](https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-8-asynchronous-actor-critic-agents-a3c-c88f72a5e9f2)
+  <li><a href="https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-0-q-learning-with-tables-and-neural-networks-d195264329d0">Q-Learning with Tables and Neural Networks</a></li>
+  <li><a href="https://medium.com/@awjuliani/super-simple-reinforcement-learning-tutorial-part-1-fd544fab149">Two-armed Bandit</a></li>
+  <li><a href="https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-1-5-contextual-bandits-bff01d1aad9c">Contextual Bandits</a></li>
+  <li><a href="https://medium.com/@awjuliani/super-simple-reinforcement-learning-tutorial-part-2-ded33892c724">Policy-based Agents</a></li>
+  <li><a href="https://medium.com/@awjuliani/simple-reinforcement-learning-with-tensorflow-part-3-model-based-rl-9a6fe0cce99">Model-Based RL</a></li>
+  <li><a href="https://medium.com/@awjuliani/simple-reinforcement-learning-with-tensorflow-part-4-deep-q-networks-and-beyond-8438a3e2b8df">Deep Q-Networks and Beyond</a></li>
+  <li><a href="https://medium.com/@awjuliani/simple-reinforcement-learning-with-tensorflow-part-5-visualizing-an-agents-thoughts-and-actions-4f27b134bb2a">Visualizing an Agent’s Thoughts and Actions</a></li>
+  <li><a href="https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-6-partial-observability-and-deep-recurrent-q-68463e9aeefc">Partial Observability and Deep Recurrent Q-Networks</a></li>
+  <li><a href="https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-7-action-selection-strategies-for-exploration-d3a97b7cceaf">Action-Selection Strategies for Exploration</a></li>
+  <li><a href="https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-8-asynchronous-actor-critic-agents-a3c-c88f72a5e9f2">Asynchronous Actor-Critic Agents (A3C)</a></li>
 </ul>
 
 ### A3C
