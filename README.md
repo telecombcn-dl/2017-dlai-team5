@@ -134,7 +134,7 @@ Their interaction is depicted more clearly in Fig. 2.
 </p>
 
 <p style="text-align: justify">
-The reason for the policy being stochastic is that otherwise there will be not room for improvement: the critic must learn about actions that are not preferred (i.e. actions that have a low probability in the current policy). This allows discovering alternative sequences of operations that seemed unpromising at first but lead to a higher accumulated reward at the end. More interestengly, one could wonder why then it is not better to act completely randomly in order to learn as much as possible. This is, however, undesirable since random policies are very unlikely to discover the interesting (i.e. the most advantageous) areas of the state space, namely, the ones associated with good performance.
+The reason for the policy being stochastic is that otherwise there will be not room for improvement: the critic must learn about actions that are not preferred (i.e. actions that have a low probability in the current policy). This allows discovering alternative sequences of operations that seemed unpromising at first but lead to a higher accumulated reward at the end. More interestingly, one could wonder why then it is not better to act completely randomly in order to learn as much as possible. This is, however, undesirable since random policies are very unlikely to discover the interesting (i.e. the most advantageous) areas of the state space, namely, the ones associated with good performance.
 </p>
 
 <p style="text-align: justify">
