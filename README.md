@@ -98,6 +98,10 @@ The series goes through the following topics:
   <li><a href="https://medium.com/emergent-future/simple-reinforcement-learning-with-tensorflow-part-8-asynchronous-actor-critic-agents-a3c-c88f72a5e9f2">Asynchronous Actor-Critic Agents (A3C)</a></li>
 </ul>
 
+<p align="center">
+  <img src="images/learning_curve.gif" width="1000" alt="" />
+</p>
+
 ### A3C
 
 <p style="text-align: justify">
